@@ -1,6 +1,6 @@
 ---
 - name: web
-  hosts: local
+  hosts: localhost
   become: yes
   
   tasks:
