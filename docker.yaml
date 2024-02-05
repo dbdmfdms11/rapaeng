@@ -1,9 +1,9 @@
 
 ---
 - name: web
-  hosts: all
+  hosts: localhost
   become: yes
   
   tasks:
-    - name: nginx
-      shell: docker service create --name test1 --replicas 3 --constraint node.role==worker --with-registry-auth -p 8004:80 nginx
+    - name: ping
+      shell: ping www.google.com -c 3
