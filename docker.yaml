@@ -3,34 +3,12 @@
   hosts: localhost
   become: yes
   
-  tasks:
-    - name: Install python3-apt
-      raw: sudo apt-get install -y python3-apt
-      
-    - name: Update apt cache
-      apt:
-        update_cache: yes
+  tasks: 
+    - name: Set placement preferences
+      docker_swarm_service:
+        name: myweb
+        image: nginx
+        placement:
+          constraints:
+            - node.role == worker
 
-    - name: Install python3-apt
-      apt:
-        name: python3-apt
-        state: present
-
-    - name: nginx
-      apt:
-        name: nginx
-        state: present
-    - name: index.html
-      get_url:
-        url: https://www.nginx.com
-        dest: /var/www/html
-    - name: service 
-      service:
-        name: nginx
-        state: started
-        enabled: true
-    - name: ufw
-      service:
-        name: ufw
-        state: stopped
-        enabled: false
